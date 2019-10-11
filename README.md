@@ -12,3 +12,6 @@ cd ssdd;
 kaggle competitions download severstal-steel-defect-detection
 ```
 
+### References:
+* [Helpful public kernels](docs/kernels.md)
+* [UNet Paper](https://arxiv.org/pdf/1505.04597.pdf)
