@@ -13,7 +13,7 @@ kaggle competitions download severstal-steel-defect-detection
 ```
 
 ### References:
-* [Helpful public kernels](docs/kernels.md)
+* [Helpful public kernels](doc/kernels.md)
 * [UNet Paper](https://arxiv.org/pdf/1505.04597.pdf)
 
 ### Extra Package
