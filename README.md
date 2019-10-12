@@ -15,3 +15,9 @@ kaggle competitions download severstal-steel-defect-detection
 ### References:
 * [Helpful public kernels](docs/kernels.md)
 * [UNet Paper](https://arxiv.org/pdf/1505.04597.pdf)
+
+### Extra Package
+* Package: [segmentation_models.pytorch](https://github.com/qubvel/segmentation_models.pytorch)
+```
+pip install git+https://github.com/qubvel/segmentation_models.pytorch
+```
