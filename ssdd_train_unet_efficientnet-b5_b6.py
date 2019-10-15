@@ -74,7 +74,8 @@ from torch.utils.data import DataLoader, Dataset, sampler
 
 from matplotlib import pyplot as plt
 
-from albumentations import (HorizontalFlip, ShiftScaleRotate, Normalize, Resize, Compose, GaussNoise)
+from albumentations import (HorizontalFlip, ShiftScaleRotate, ElasticTransform, GridDistortion,RandomBrightness ,ShiftScaleRotate, Normalize, Resize, Compose, GaussNoise)
+
 from albumentations.pytorch import ToTensor
 #warnings.filterwarnings("ignore")
 
@@ -162,6 +163,10 @@ def get_transforms(phase, mean, std):
         list_transforms.extend(
             [
                 HorizontalFlip(p=0.5), # only horizontal flip as of now
+                ShiftScaleRotate(scale_limit=0, rotate_limit=0),
+                ElasticTransform(),
+                GridDistortion(), 
+                RandomBrightness(),
             ]
         )
     list_transforms.extend(
@@ -427,8 +432,8 @@ class Trainer(object):
                 state["best_loss"] = self.best_loss = val_loss
                 print("Saving in %s"%(MODEL_PTH))
                 torch.save(state, MODEL_PTH)
-            print()
-
+            torch.save(state, 'epoch_%s_'%(epoch)+MODEL_PTH)
+            
 
 # In[11]:
 
