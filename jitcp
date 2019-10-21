@@ -1,0 +1,112 @@
+#!/home/paperspace/anaconda3/bin/python
+# coding: utf-8
+
+# # JIT Copy Path File
+
+# In[1]:
+
+
+# SOURCE  = "/home/paperspace/bestmodel_27.pth"
+# DESTINATION  ="jit_fpn_b6.pth"
+# MODELNAME = "fpn"
+# ENCODER = "efficientnet-b6"
+
+
+# In[11]:
+
+
+from argparse import ArgumentParser
+
+
+# In[12]:
+
+
+ap = ArgumentParser()
+
+
+# In[ ]:
+
+
+ap.add_argument("--src", dest = "src", help="file path for srouce weights, pth file")
+ap.add_argument("--dst", dest = "dst", help="file path for destination weights, pth file")
+ap.add_argument("--model", dest = "model", default ='fpn' , help="Model name either 'unet' or 'fpn, default 'fpn'")
+ap.add_argument("--encoder", dest = "encoder", help='encoder backbone, like efficientnet-b6, efficientnet-b7')
+
+
+# In[22]:
+
+
+args = ap.parse_args()
+
+SOURCE = args.src
+DESTINATION = args.dst
+MODELNAME = args.model
+ENCODER = args.encoder
+
+
+# In[2]:
+
+
+from fastai.vision import *
+import  segmentation_models_pytorch as smp
+import torch
+
+
+# In[3]:
+
+
+if MODELNAME == "fpn":
+    modellib = smp.FPN
+elif MODELNAME=="unet":
+    modellib = smp.Unet
+else:
+    print("Didn't know about name %s"%(MODELNAME))
+    exit(0)
+
+
+# In[4]:
+
+
+print("Constructing model:\t%s\nWith Encoder Backbone:\t%s"%(MODELNAME, ENCODER))
+
+
+# In[5]:
+
+
+model = modellib(ENCODER,encoder_weights = None, classes = 4, activation=None)
+
+
+# In[6]:
+
+
+print("Loading model to cuda")
+model = model.cuda()
+
+
+# In[7]:
+
+
+print("Loading weights from:\t%s"%(SOURCE))
+
+
+# In[8]:
+
+
+model.load_state_dict(torch.load(SOURCE)["model"])
+
+
+# In[9]:
+
+
+testimg = torch.rand(2,3,256,256).cuda()
+model = model.eval()
+
+
+# In[10]:
+
+
+print("JIT tracing the model")
+traced = torch.jit.trace(model, testimg)
+traced.save(DESTINATION)
+print("JIT model saved to:\t%s"%(DESTINATION))
+

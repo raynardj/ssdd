@@ -21,3 +21,7 @@ kaggle competitions download severstal-steel-defect-detection
 ```
 pip install git+https://github.com/qubvel/segmentation_models.pytorch
 ```
+
+### Save to JIT model
+* ```jitcp --src="/home/paperspace/bestmodel_27.pth" --dst="jit_fpn_b6.pth" --model="fpn" --encoder="efficientnet-b6"```
+* The [process notebook and doc](jitcp.ipynb)
