@@ -1,0 +1,4 @@
+*.csv
+*.pth
+train_images
+test_images
