@@ -90,10 +90,9 @@ print("Loading weights from:\t%s"%(SOURCE))
 
 
 # In[8]:
-
-
-model.load_state_dict(torch.load(SOURCE)["model"])
-
+loaded = torch.load(SOURCE)
+model_key = "model" if "model" in loaded else "state_dict"
+model.load_state_dict(loaded[model_key])
 
 # In[9]:
 
