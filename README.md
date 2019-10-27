@@ -3,6 +3,14 @@
 
 This [competition](https://www.kaggle.com/c/severstal-steel-defect-detection)
 
+### Competition Result
+
+* We could have end up 45th place as a silver medal, but we are then disqualified for using fictious accounts.
+
+* This is a lesson well learned, our efforts are recorded in this git repo.
+
+* It's a wonderful experience nonetheless.
+
 ### The dataset:
 
 To install and config this command line api first, check [here](https://github.com/Kaggle/kaggle-api)
